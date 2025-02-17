@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘对话</title>
+    <style>
+        /* 基础样式 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: radial-gradient(circle, #0a0a0a, #1a1a1a); /* 径向渐变背景 */
+            color: white;
+            font-family: 'Helvetica Neue', sans-serif;
+            overflow: hidden;
+        }
+
+        /* 立体透明圆圈 */
+        .circle {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1); /* 半透明背景 */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* 圆圈浮动动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* 圆圈内文字 */
+        .circle-text {
+            position: absolute;
+            font-size: 1.2em;
+            color: white;
+            opacity: 0;
+            animation: fadeInOut 2s forwards; /* 文字显现后消失 */
+        }
+
+        /* 文字显现后消失动画 */
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* 对话框样式 */
+        .dialog-box {
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 6s forwards; /* 延迟6秒后出现 */
+        }
+
+        /* 对话框淡入动画 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 输入框样式 */
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            font-size: 1em;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 按钮样式 */
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- 立体透明圆圈 -->
+    <div class="circle">
+        <div class="circle-text" id="text1" style="animation-delay: 1s;">接下来</div>
+        <div class="circle-text" id="text2" style="animation-delay: 3s;">您可以对我进行对话留言</div>
+    </div>
+
+    <!-- 对话框 -->
+    <div class="dialog-box">
+        <textarea id="message" placeholder="请输入您的留言..."></textarea>
+        <button onclick="submitMessage()">提交留言</button>
+    </div>
+
+    <script>
+        // 提交留言功能
+        function submitMessage() {
+            const message = document.getElementById('message').value;
+            if (message.trim()) {
+                alert(`您的留言已提交：\n${message}`);
+                document.getElementById('message').value = ''; // 清空输入框
+            } else {
+                alert('请输入留言内容！');
+            }
+        }
+    </script>
+</body>
+</html>
