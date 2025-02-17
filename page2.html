@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>怎么样怎么样很帅吧</title>
+    <title>怎么样很帅吧</title>
     <style>
         /* 基础样式 */
         body {
@@ -130,8 +130,23 @@
         function submitMessage() {
             const message = document.getElementById('message').value;
             if (message.trim()) {
-                alert(`您的留言已提交：\n${message}`);
-                document.getElementById('message').value = ''; // 清空输入框
+                // 发送留言到后端
+                fetch('/submit-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.status); // 显示提交结果
+                    document.getElementById('message').value = ''; // 清空输入框
+                })
+                .catch(error => {
+                    console.error('提交失败:', error);
+                    alert('提交失败，请重试！');
+                });
             } else {
                 alert('请输入留言内容！');
             }
